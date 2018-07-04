@@ -22,9 +22,6 @@
       $arrayPostData['messages'][1]['stickerId'] = "34";
       $arrayPostData['messages'][2]['type'] = "text";
       $arrayPostData['messages'][2]['text'] = $id;
-      getProfile($id);
-      $arrayPostData['messages'][3]['type'] = "text";
-      $arrayPostData['messages'][3]['text'] = $contentid;
       pushMsg($arrayHeader,$arrayPostData);
    }
 
@@ -37,20 +34,7 @@ if($message == "นับ 1-10"){
        }
     }
 
-function getProfile($id){
-      $strUrl = "https://api.line.me/v2/bot/profile";
-      $ch = curl_init();
-      curl_setopt($ch, CURLOPT_URL,$strUrl);
-      curl_setopt($ch, CURLOPT_HEADER, false);
-      curl_setopt($ch, CURLOPT_POST, true);
-      curl_setopt($ch, CURLOPT_HTTPHEADER, $arrayHeader);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($id));
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-      $contentid = curl_exec($ch);
-      return $contentid ;
-      curl_close ($ch);
-}
+
 
    function pushMsg($arrayHeader,$arrayPostData){
       $strUrl = "https://api.line.me/v2/bot/message/push";
