@@ -23,6 +23,8 @@
       $arrayPostData['messages'][2]['type'] = "text";
       $arrayPostData['messages'][2]['text'] = $id;
       getProfile($id);
+      $arrayPostData['messages'][3]['type'] = "text";
+      $arrayPostData['messages'][3]['text'] = $contentid;
       pushMsg($arrayHeader,$arrayPostData);
    }
 
@@ -46,6 +48,7 @@ function getProfile($id){
       curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
       $contentid = curl_exec($ch);
+      return $contentid ;
       curl_close ($ch);
 }
 
