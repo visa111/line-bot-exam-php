@@ -10,10 +10,6 @@
    //รับ id ของผู้ใช้
    $id = $arrayJson['events'][0]['source']['userId'];
 
-$bot = new \LINE\LINEBot(new CurlHTTPClient($accessToken), [
-    'channelSecret' => '75509b2d7dec8f7e151e2906cd870026'
-]);
-
 $res = $bot->getProfile('user-id');
 if ($res->isSucceeded()) {
     $profile = $res->getJSONDecodedBody();
@@ -32,8 +28,6 @@ if ($res->isSucceeded()) {
       $arrayPostData['messages'][1]['stickerId'] = "34";
       $arrayPostData['messages'][2]['type'] = "text";
       $arrayPostData['messages'][2]['text'] = $id;
-      $arrayPostData['messages'][3]['type'] = "text";
-      $arrayPostData['messages'][3]['text'] = $displayName;
       pushMsg($arrayHeader,$arrayPostData);
    }
 
