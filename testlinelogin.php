@@ -13,7 +13,7 @@
 <a onclick="loginLine()"><img src="https://www.itsm.com/images/logo01.png"></a>
 <script>
 function loginLine(){
-    var win = window.open("https://access.line.me/dialog/oauth/weblogin?response_type=code&client_id=1592037842&redirect_url=http://ils.itsm-th.com",'Popup','height=500,width=480');
+    var win = window.open("https://access.line.me/dialog/oauth/weblogin?response_type=code&client_id=1592037842&redirect_url=https://mybottestnow.herokuapp.com/closeline.php",'Popup','height=500,width=480');
     win.window.focus();
 }
 
