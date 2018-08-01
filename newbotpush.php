@@ -16,7 +16,7 @@ $idMessage = $arrayJson['events'][0]['message']['id'];
 
 switch ($typeMessage){
         case 'text':
-         switch ($userMessage) {
+         switch ($message) {
                 case "สวัสดี":     
                      #ตัวอย่าง Message Type "Text + Sticker"
                         $arrayPostData['to'] = $id;
