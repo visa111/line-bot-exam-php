@@ -10,66 +10,62 @@
    //รับ id ของผู้ใช้
    $id = $arrayJson['events'][0]['source']['userId'];
 
-
-
-   #ตัวอย่าง Message Type "Text + Sticker"
-   if($message == "สวัสดี" or $message == "สวัสดีครับ"){
-      $arrayPostData['to'] = $id;
-      $arrayPostData['messages'][0]['type'] = "text";
-      $arrayPostData['messages'][0]['text'] = "สวัสดีจ้าาา";
-      $arrayPostData['messages'][1]['type'] = "sticker";
-      $arrayPostData['messages'][1]['packageId'] = "2";
-      $arrayPostData['messages'][1]['stickerId'] = "34";
-      $arrayPostData['messages'][2]['type'] = "text";
-      $arrayPostData['messages'][2]['text'] = $id;
-      pushMsg($arrayHeader,$arrayPostData);
-   }
-
-if($message == "นับ 1-10"){
-       for($i=1;$i<=10;$i++){
-          $arrayPostData['to'] = $id;
-          $arrayPostData['messages'][0]['type'] = "text";
-          $arrayPostData['messages'][0]['text'] = $i;
-          pushMsg($arrayHeader,$arrayPostData);
-       }
-    }
-////////////////////// check file
 $messageraw = $arrayJson['events'][0]['message'];
 $typeMessage = $arrayJson['events'][0]['message']['type']; 
 $idMessage = $arrayJson['events'][0]['message']['id']; 
 
-foreach ($messageraw as $key => $value) {
-    $messageraw_1 = $messageraw_1 . $key . ' => ' . $value;
+switch ($typeMessage){
+        case 'text':
+         switch ($userMessage) {
+                case "สวัสดี":     
+                     #ตัวอย่าง Message Type "Text + Sticker"
+                        $arrayPostData['to'] = $id;
+                        $arrayPostData['messages'][0]['type'] = "text";
+                        $arrayPostData['messages'][0]['text'] = "สวัสดีจ้าาา";
+                        $arrayPostData['messages'][1]['type'] = "sticker";
+                        $arrayPostData['messages'][1]['packageId'] = "2";
+                        $arrayPostData['messages'][1]['stickerId'] = "34";
+                        $arrayPostData['messages'][2]['type'] = "text";
+                        $arrayPostData['messages'][2]['text'] = $id;
+                        pushMsg($arrayHeader,$arrayPostData);
+                     break;
+                  case "สวัสดีครับ": 
+                        $arrayPostData['to'] = $id;
+                        $arrayPostData['messages'][0]['type'] = "text";
+                        $arrayPostData['messages'][0]['text'] = "สวัสดีจ้าาา";
+                        $arrayPostData['messages'][1]['type'] = "sticker";
+                        $arrayPostData['messages'][1]['packageId'] = "2";
+                        $arrayPostData['messages'][1]['stickerId'] = "34";
+                        $arrayPostData['messages'][2]['type'] = "text";
+                        $arrayPostData['messages'][2]['text'] = $id;
+                        pushMsg($arrayHeader,$arrayPostData);
+                     break;
+                   case "นับ 1-10": 
+                        for($i=1;$i<=10;$i++){
+                            $arrayPostData['to'] = $id;
+                            $arrayPostData['messages'][0]['type'] = "text";
+                            $arrayPostData['messages'][0]['text'] = $i;
+                            pushMsg($arrayHeader,$arrayPostData);
+                         }
+                     break;
+                  default:
+                       $textReplyMessage = " คุณไม่ได้พิมพ์ ค่า ตามที่กำหนด";
+                       $replyData = new TextMessageBuilder($textReplyMessage);         
+                       break; 
+         }
+      case 'image':
+      ////////////////////// check file
+               foreach ($messageraw as $key => $value) {
+                   $messageraw_1 = $messageraw_1 . $key . ' => ' . $value.'<br>';
+                        }
+                        $arrayPostData['to'] = $id;
+                        $arrayPostData['messages'][0]['type'] = "text";
+                        $arrayPostData['messages'][0]['text'] = $typeMessage." : ". $idMessage." : ".$messageraw_1;
+                        pushMsg($arrayHeader,$arrayPostData);
+     ////////////////////// check file
+     break;  
 }
-
-
-
-function getcontent($arrayHeader,$idMessage){
-      $url_data = "https://api.line.me/v2/bot/message/".$idMessage."/content";
-      $c = curl_init();
-      curl_setopt($c, CURLOPT_URL,$strUrl);
-      curl_setopt($c, CURLOPT_HEADER, false);
-      //curl_setopt($c, CURLOPT_POST, false);
-      curl_setopt($c, CURLOPT_HTTPHEADER, $arrayHeader);
-      //curl_setopt($c, CURLOPT_POSTFIELDS, json_encode($arrayPostData));
-      curl_setopt($c, CURLOPT_RETURNTRANSFER,true);
-      curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-      $result_content = curl_exec($c);
-   return $result_content;
-      curl_close ($c);
-   }
-
-getcontent($arrayHeader,$idMessage);
-
-         $arrayPostData['to'] = $id;
-          $arrayPostData['messages'][0]['type'] = "text";
-          $arrayPostData['messages'][0]['text'] = $typeMessage." : ". $idMessage." : ".$messageraw_1." : ".$result_content;
-          pushMsg($arrayHeader,$arrayPostData);
-
-////////////////////// check file
-
-
-
+               
 
    function pushMsg($arrayHeader,$arrayPostData){
       $strUrl = "https://api.line.me/v2/bot/message/push";
