@@ -53,6 +53,7 @@ switch ($typeMessage){
                        $replyData = new TextMessageBuilder($textReplyMessage);         
                        break; 
          }
+      break;
       case 'image':
       ////////////////////// check file
                foreach ($messageraw as $key => $value) {
