@@ -50,7 +50,10 @@ switch ($typeMessage){
                      break;
                   default:
                        $textReplyMessage = " คุณไม่ได้พิมพ์ ค่า ตามที่กำหนด";
-                       $replyData = new TextMessageBuilder($textReplyMessage);         
+                        $arrayPostData['to'] = $id;
+                        $arrayPostData['messages'][0]['type'] = "text";
+                        $arrayPostData['messages'][0]['text'] = $textReplyMessage;
+                        pushMsg($arrayHeader,$arrayPostData);         
                        break; 
          }
       break;
