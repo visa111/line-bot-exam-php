@@ -35,8 +35,8 @@ if($message == "นับ 1-10"){
     }
 ////////////////////// check file
 
-$typeMessage = $events['events'][0]['message']['type']; 
-$idMessage = $events['events'][0]['message']['id']; 
+$typeMessage = $arrayJson['events'][0]['message']['type']; 
+$idMessage = $arrayJson['events'][0]['message']['id']; 
 
          $arrayPostData['to'] = $id;
           $arrayPostData['messages'][0]['type'] = "text";
