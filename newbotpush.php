@@ -68,6 +68,17 @@ switch ($typeMessage){
                         pushMsg($arrayHeader,$arrayPostData);
      ////////////////////// check file
      break;  
+     case 'audio':
+      ////////////////////// check file
+               foreach ($messageraw as $key => $value) {
+                   $messageraw_1 = $messageraw_1 . $key . ' => ' . $value.'<br>';
+                        }
+                        $arrayPostData['to'] = $id;
+                        $arrayPostData['messages'][0]['type'] = "text";
+                        $arrayPostData['messages'][0]['text'] = $typeMessage." : ". $idMessage." : ".$messageraw_1;
+                        pushMsg($arrayHeader,$arrayPostData);
+     ////////////////////// check file
+     break;        
 }
                
 
