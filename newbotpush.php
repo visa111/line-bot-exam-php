@@ -34,13 +34,13 @@ if($message == "นับ 1-10"){
        }
     }
 ////////////////////// check file
-
+$messageraw = $arrayJson['events'][0]['message'];
 $typeMessage = $arrayJson['events'][0]['message']['type']; 
 $idMessage = $arrayJson['events'][0]['message']['id']; 
 
          $arrayPostData['to'] = $id;
           $arrayPostData['messages'][0]['type'] = "text";
-          $arrayPostData['messages'][0]['text'] = $typeMessage." : ". $idMessage;
+          $arrayPostData['messages'][0]['text'] = $typeMessage." : ". $idMessage." : ".$messageraw;
           pushMsg($arrayHeader,$arrayPostData);
 
 ////////////////////// check file
