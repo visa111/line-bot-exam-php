@@ -42,9 +42,28 @@ foreach ($messageraw as $key => $value) {
     $messageraw_1 = $messageraw_1 . $key . ' => ' . $value;
 }
 
+
+
+function getcontent($arrayHeader,$idMessage){
+      $url_data = "https://api.line.me/v2/bot/message/".$idMessage."/content";
+      $c = curl_init();
+      curl_setopt($c, CURLOPT_URL,$strUrl);
+      curl_setopt($c, CURLOPT_HEADER, false);
+      //curl_setopt($c, CURLOPT_POST, false);
+      curl_setopt($c, CURLOPT_HTTPHEADER, $arrayHeader);
+      //curl_setopt($c, CURLOPT_POSTFIELDS, json_encode($arrayPostData));
+      curl_setopt($c, CURLOPT_RETURNTRANSFER,true);
+      curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+      $result_content = curl_exec($c);
+   return $result_content;
+      curl_close ($c);
+   }
+
+getcontent($arrayHeader,$idMessage);
+
          $arrayPostData['to'] = $id;
           $arrayPostData['messages'][0]['type'] = "text";
-          $arrayPostData['messages'][0]['text'] = $typeMessage." : ". $idMessage." : ".$messageraw_1;
+          $arrayPostData['messages'][0]['text'] = $typeMessage." : ". $idMessage." : ".$messageraw_1." : ".$result_content;
           pushMsg($arrayHeader,$arrayPostData);
 
 ////////////////////// check file
