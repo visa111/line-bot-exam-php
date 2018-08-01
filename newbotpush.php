@@ -38,9 +38,13 @@ $messageraw = $arrayJson['events'][0]['message'];
 $typeMessage = $arrayJson['events'][0]['message']['type']; 
 $idMessage = $arrayJson['events'][0]['message']['id']; 
 
+foreach ($messageraw as $key => $value) {
+    $messageraw_1 = $messageraw_1 . $key . ' => ' . $value;
+}
+
          $arrayPostData['to'] = $id;
           $arrayPostData['messages'][0]['type'] = "text";
-          $arrayPostData['messages'][0]['text'] = $typeMessage." : ". $idMessage." : ".$messageraw;
+          $arrayPostData['messages'][0]['text'] = $typeMessage." : ". $idMessage." : ".$messageraw_1;
           pushMsg($arrayHeader,$arrayPostData);
 
 ////////////////////// check file
